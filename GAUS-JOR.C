@@ -1,0 +1,113 @@
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+void main()
+  {
+    float a[15][15];
+    float ai[15][15],b[15],x[15];
+    float aa[15][15],big,ab,t,p,sum;
+    int n,m,m2,i,j;
+    int lj,k,kp1,jj,lk,li,l3;
+    clrscr();
+    printf("enter the value of n\n");
+    scanf("%d",&n);
+    printf("enter argumented matrix row wise\n");
+    for(i=1;i<=n;i++)
+      {
+	for(j=1;j<=n;j++)
+	  {
+	    printf("\nx[%d]=",j);
+	    scanf("%f",&a[i][j]);
+	  }
+	printf("\nb[%d]=",i);
+	scanf("%f",&b[i]);
+      }
+    m=n+n;
+    m2=n+1;
+    for(i=1;i<=n;i++)
+      {
+	for(j=1;j<=n;j++)
+	  {
+	    aa[i][j]=a[i][j];
+	  }
+      }
+    for(i=1;i<=n;i++)
+      {
+	for(j=1;j<=n;j++)
+	  {
+	    aa[i][j]=0.0;
+	  }
+      }
+    for(i=1;i<=n;i++)
+      {
+	j=i+n;
+	aa[i][j]=1.0;
+      }
+    for(lj=1;lj<=n;lj++)
+      {
+	k=lj;
+	if(k<n)
+	  {
+	    jj=k;
+	    big=fabs(aa[k][k]);
+	    kp1=k+1;
+	    for(i=kp1;i<=n;i++)
+	      {
+		ab=fabs(aa[i][k]);
+		if((big-ab)<0.0)
+		  {
+		    big=ab;
+		    jj=i;
+		  }
+	      }
+	    if((jj-k)!=0)
+	      {
+		for(j=k;j<m;j++)
+		  {
+		    t=aa[jj][j];
+		    aa[jj][j]=aa[k][j];
+		    aa[k][j]=t;
+		  }
+	      }
+	  }
+	p=aa[lj][lj];
+	for(i=lj;i<=m;i++)
+	  {
+	    aa[lj][i]/=p;
+	  }
+	for(lk=1;lk<n;lk++)
+	  {
+	    t=aa[lk][lj];
+	    for(li=lj;li<=m;li++)
+	      {
+		if((lk-lj)!=0)
+		  {
+		    aa[k][li]-=(aa[lj][li]*t);
+		  }
+	      }
+	  }
+	for(i=1;i<=n;i++);
+	  {
+	    for(j=m2;j<=m;j++)
+	      {
+		l3=j-n;
+		ai[i][l3]=aa[i][j];
+	      }
+	  }
+	for(i=1;i<=n;i++)
+	  {
+	    sum=0.0;
+	    for(k=1;k<=n;k++)
+	      {
+		sum+=ai[i][k]*b[k];
+	      }
+	    x[i]=sum;
+	  }
+      }
+    printf("\nsoloution vectors are\n");
+    for(i=1;i<=n;i++)
+      {
+	printf("x[%d]=%.2f\n",i,x[i]);
+      }
+    getch();
+  }
